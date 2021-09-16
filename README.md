@@ -3,7 +3,9 @@
 [![Snakemake](https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen.svg)](https://snakemake.bitbucket.io)
 [![Build Status](https://travis-ci.org/snakemake-workflows/DLBCL_HERV_atlas_GDC.svg?branch=master)](https://travis-ci.org/snakemake-workflows/DLBCL_HERV_atlas_GDC)
 
-This is the template for a new Snakemake workflow. Replace this text with a comprehensive description covering the purpose and domain.
+This workflow is for the DLBCL HERV atlas, and specifically data that is accessed from GDC.
+Ideally the same workflow will also apply to data accessed from SRA but we are keeping these separate for now.
+
 Insert your code into the respective folders, i.e. `scripts`, `rules`, and `envs`. Define the entry point of the workflow in the `Snakefile` and the main configuration in the `config.yaml` file.
 
 ## Authors
@@ -16,8 +18,38 @@ If you use this workflow in a paper, don't forget to give credits to the authors
 
 ### Step 1: Obtain a copy of this workflow
 
-1. Create a new github repository using this workflow [as a template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-2. [Clone](https://help.github.com/en/articles/cloning-a-repository) the newly created repository to your local system, into the place where you want to perform the data analysis.
+[Clone](https://help.github.com/en/articles/cloning-a-repository) this repository to your local system, into the place where you want to perform the data analysis.
+
+### Step 2: Select samples
+
+The script `gdcquery.py` performs a query through the GDC API files endpoint and retrieves all RNA-seq BAM files belonging to a specific project.
+
+
+###### [NCICCR-DLBCL sample matrix](resources/NCICCR-DLBCL.tsv)
+
+The NCI CCR DLBCL project includes three types of alignments: genomic, transcriptomic, and chimeric. ("Chimeric" is produced by STAR and contains chimeric alignments only). Since we are going to be extracting and remapping reads, the genomic alignments are the ones we want. Here is how we got the sample matrix
+
+```bash
+workflow/scripts/gdcquery.py NCICCR-DLBCL > resources/tmp.txt
+head -n1 resources/tmp.txt > resources/NCICCR-DLBCL.tsv
+grep 'genomic' resources/tmp.txt >> resources/NCICCR-DLBCL.tsv
+rm resources/tmp.txt 
+```
+
+##### [TCGA-DLBC sample matrix](resources/TCGA-DLBC.tsv)
+
+```bash
+workflow/scripts/gdcquery.py TCGA-DLBC > resources/TCGA-DLBC.tsv
+```
+
+
+
+---
+
+Text below is boilerplate from cookiecutter
+
+---
+
 
 ### Step 2: Configure workflow
 
