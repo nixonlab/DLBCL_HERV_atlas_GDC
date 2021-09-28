@@ -22,25 +22,10 @@ If you use this workflow in a paper, don't forget to give credits to the authors
 
 ### Step 2: Select samples
 
-The script `gdcquery.py` performs a query through the GDC API files endpoint and retrieves all RNA-seq BAM files belonging to a specific project.
-
-
-###### [NCICCR-DLBCL sample matrix](resources/NCICCR-DLBCL.tsv)
-
-The NCI CCR DLBCL project includes three types of alignments: genomic, transcriptomic, and chimeric. ("Chimeric" is produced by STAR and contains chimeric alignments only). Since we are going to be extracting and remapping reads, the genomic alignments are the ones we want. Here is how we got the sample matrix
-
-```bash
-workflow/scripts/gdcquery.py NCICCR-DLBCL > resources/tmp.txt
-head -n1 resources/tmp.txt > resources/NCICCR-DLBCL.tsv
-grep 'genomic' resources/tmp.txt >> resources/NCICCR-DLBCL.tsv
-rm resources/tmp.txt 
+```
+python workflow/scripts/format_samples.py
 ```
 
-##### [TCGA-DLBC sample matrix](resources/TCGA-DLBC.tsv)
-
-```bash
-workflow/scripts/gdcquery.py TCGA-DLBC > resources/TCGA-DLBC.tsv
-```
 
 
 

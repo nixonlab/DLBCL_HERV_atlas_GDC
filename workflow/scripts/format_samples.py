@@ -48,10 +48,17 @@ s9header = next(tsv)
 for row in tsv:
     tableS9[row[0]] = dict(zip(s9header, row))
 
+tableS5 = {}
+tsv = (l.strip('\n').split('\t') for l in open('resources/metadata/tableS5.tsv', 'r'))
+s5header = next(tsv)
+for row in tsv:
+    tableS5[row[0]] = dict(zip(s5header, row))
+
+
 # Add Gene expression group and Genetic group to 
 for row in samples:
     if row['project'] == 'NCICCR-DLBCL':
-        assert row['sample'] in tableS9
+        assert row['sample'] in tableS9, "row %s not in table" % row['sample']
         row['gex_group'] = tableS9[row['sample']]['Gene Expression Subgroup']
         row['gen_group'] = tableS9[row['sample']]['Genetic Subtype']
     elif row['project'] == 'TCGA-DLBC':
@@ -64,6 +71,17 @@ for row in samples:
             row['gen_group'] = ''
 
 
+# Add Gene expression group and Genetic group to 
+for row in samples:
+    if row['sample'] in tableS5:
+        row['scCOO_group'] = tableS5[row['sample']]['sc-COO Group']
+    else:
+        row['scCOO_group'] = ''
+    print('%s\t%s' % (row['sample'], row['scCOO_group']))
+    
+Counter(row)
+
+
 # select pilot (only from NCICCR)
 print('Gene Expression Subgroup counts (NCICCR only)')
 print('\n'.join('%s\t%d' % t for t in Counter(r['gex_group'] for r in tmp2a).most_common()))
@@ -71,21 +89,35 @@ print('Genetic Subtype counts (NCICCR only)')
 print('\n'.join('%s\t%d' % t for t in Counter(r['gen_group'] for r in tmp2a).most_common()))
 print('Gene Expression X Genetic Subtype counts (NCICCR only)')
 print('\n'.join('%s\t%d' % t for t in Counter((r['gex_group'],r['gen_group']) for r in tmp2a).most_common()))
+print('scCOO Group')
+print('\n'.join('%s\t%d' % t for t in Counter(r['scCOO_group'] for r in tmp2a).most_common()))
 
 random.seed(12345)
 pilot = set()
 ssize = 10
 tot = 0
-combs = [_[0] for _ in Counter((r['gex_group'],r['gen_group']) for r in tmp2a).most_common()]
-for t in combs:
-    sel = [r for r in tmp2a if r['gex_group'] == t[0] and r['gen_group'] == t[1]]
+# combs = [_[0] for _ in Counter((r['gex_group'],r['gen_group']) for r in tmp2a).most_common()]
+groups = ['Group I', 'Group II', 'Group III', 'Group IV', 'Group V']
+for g in groups:
+    sel = [r for r in samples if r['scCOO_group'] == g]
     if len(sel) > ssize:
         selid = set(r['sample'] for r in random.sample(sel, 10))
     else:
         selid = set(r['sample'] for r in sel)
-    print('%s\t%d\t%d' % (t, len(sel), len(selid)))
+    print('%s\t%d\t%d' % (g, len(sel), len(selid)))
     tot += len(selid)
     pilot |= selid
+    
+    
+# for t in combs:
+#     sel = [r for r in tmp2a if r['gex_group'] == t[0] and r['gen_group'] == t[1]]
+#     if len(sel) > ssize:
+#         selid = set(r['sample'] for r in random.sample(sel, 10))
+#     else:
+#         selid = set(r['sample'] for r in sel)
+#     print('%s\t%d\t%d' % (t, len(sel), len(selid)))
+#     tot += len(selid)
+#     pilot |= selid
 
 assert len(pilot) == tot
 print('%d samples in pilot' % len(pilot))
@@ -97,7 +129,7 @@ for row in samples:
     else:
         row['pilot'] = 'False'
 
-newhead = list(remap.keys()) + ['gex_group', 'gen_group', 'pilot']
+newhead = list(remap.keys()) + ['gex_group', 'gen_group', 'scCOO_group', 'pilot']
 
 with open('config/samples.tsv', 'w') as outh:
     print('\t'.join(newhead), file=outh)
