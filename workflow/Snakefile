@@ -1,35 +1,49 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Setup
 from snakemake.utils import min_version
 
 min_version("6.4.1")
 
 from snakemake.exceptions import RuleException
 
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
+from builtins import *
 
+import re
+import gzip
+from collections import defaultdict
+
+# Set up sample wildcards
 wildcard_constraints:
     caseid = 'TCGA-[0-9A-Z]{2}-[0-9A-Z]{4}',
     sampid = 'TCGA-[0-9A-Z]{2}-[0-9A-Z]{4}-\d{2}[A-Z]',
     uuid = '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}'
 
+configfile: "workflow/config.yaml"
+
+# Parse metadata
+METADATA = {}
+tsv = (l.strip('\n').split('\t') for l in open(config['sample_tsv'], 'r'))
+header = next(tsv)
+for row in tsv:
+    d = dict(zip(header, row))
+    METADATA[d['sample']] = d
+
+# Create filtered metadata file with pilot data
 
 
-# The main entry point of your workflow.
-# After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
+include: "gdc_download.smk"
+include: "references.smk"
 
-
-report: "report/workflow.rst"
-
-# Allow users to fix the underlying OS via singularity.
-singularity: "docker://continuumio/miniconda3"
-
-
+# Run for ALL samples
+localrules: all
 rule all:
     input:
-        # The first rule should define the default target files
-        # Subsequent target rules can be specified below. They should start with all_*.
 
-
-include: "rules/common.smk"
-include: "rules/other.smk"
+# Run for only pilot samples
+localrules: pilot
+rule  pilot:
+    input:

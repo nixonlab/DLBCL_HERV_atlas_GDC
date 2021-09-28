@@ -1,8 +1,17 @@
-# This file should contain everything to configure the workflow on a global scale.
-# In case of sample based data, it should be complemented by a samples.tsv file that contains
-# one row per sample. It can be parsed easily via pandas.
-sample_tsv: 
-    - "config/NCICCR-DLBCL.tsv"
-    - "config/TCGA-DLBC.tsv"
+# sample list (generated using config/format_samples.py)
+sample_tsv: "config/samples.tsv"
 
-    
+# Remote files to be downloaded to refs/downloads
+downloads:
+    GRCh38.d1.vd1.fa.tar.gz:
+        url: "https://api.gdc.cancer.gov/data/254f697d-310d-4d7d-a27b-27fbf767a834"
+        md5: "3ffbcfe2d05d43206f57f81ebb251dc9"
+    gencode.v22.annotation.gtf.gz:
+        url: "https://api.gdc.cancer.gov/data/25aa497c-e615-4cb7-8751-71f744f9691f"
+        md5: "291330bdcff1094bc4d5645de35e0871"
+    retro.hg38.v1.gtf:
+        url: "https://github.com/mlbendall/telescope_annotation_db/raw/master/builds/retro.hg38.v1/transcripts.gtf"
+        md5: "c07cf115c1f957b3020efc547f3847fa"
+    retro.hg38.v1.tsv.gz:
+        url: "https://github.com/mlbendall/telescope_annotation_db/raw/master/builds/retro.hg38.v1/genes.tsv.gz"
+        md5: "b3ca6d3705d030742255d216e25dfc1d"
