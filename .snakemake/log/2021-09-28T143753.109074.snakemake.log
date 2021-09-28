@@ -1,4 +1,0 @@
-SyntaxError:
-Input and output files have to be specified as strings or lists of strings.
-  File "/pbtech_mounts/homes064/bhs4002/DLBCL_HERV_atlas_GDC/workflow/Snakefile", line 69, in <module>
-  File "/pbtech_mounts/homes064/bhs4002/DLBCL_HERV_atlas_GDC/workflow/rules/gdc_download.smk", line 36, in <module>
