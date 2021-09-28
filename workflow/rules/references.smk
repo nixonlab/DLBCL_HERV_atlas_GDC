@@ -39,7 +39,7 @@ picard CreateSequenceDictionary R={output[0]} O={output[2]}
 localrules: extract_transcriptome
 rule extract_transcriptome:
     input:
-        'refs/downloads/gencode.v22.annotation.gtf.gz',
+        'refs/downloads/gencode.v38.annotation.gtf.gz',
         config['sequences']['genome']
     output:
         config['sequences']['transcripts'],
@@ -60,7 +60,7 @@ rm -f $tfa*
 localrules: id_mapping
 rule id_mapping:
     input:
-        'refs/downloads/gencode.v22.annotation.gtf.gz',
+        'refs/downloads/gencode.v38.annotation.gtf.gz',
         config['sequences']['transcripts_list']
     output:
         config['annotations']['ttg'],

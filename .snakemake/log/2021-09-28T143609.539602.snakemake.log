@@ -1,0 +1,4 @@
+WorkflowError:
+Failed to open source file /pbtech_mounts/homes064/bhs4002/DLBCL_HERV_atlas_GDC/workflow/gdc_download.smk
+FileNotFoundError: [Errno 2] No such file or directory: '/pbtech_mounts/homes064/bhs4002/DLBCL_HERV_atlas_GDC/workflow/gdc_download.smk'
+  File "/pbtech_mounts/homes064/bhs4002/DLBCL_HERV_atlas_GDC/workflow/Snakefile", line 43, in <module>
