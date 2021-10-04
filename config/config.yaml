@@ -1,7 +1,11 @@
 # sample list (generated using config/format_samples.py)
 sample_tsv: "config/samples.tsv"
 
-gdc_token_file: # fill this in
+# path to gdc token file
+gdc_token_file:
+
+# assigned temporary directory 
+local_tmp:
 
 # Remote files to be downloaded to refs/downloads
 downloads:
@@ -30,6 +34,7 @@ indexes:
     kallisto: "refs/index.kallisto/transcripts"
     bowtie2: "refs/index.bowtie2/genome"
     hisat2: "refs/index.hisat2/genome"
+    star: "refs/index.star/genome"
 
 annotations:
     gencode: "refs/downloads/gencode.v38.annotation.gtf.gz"

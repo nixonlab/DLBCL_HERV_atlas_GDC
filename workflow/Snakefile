@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+ #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Setup
@@ -40,7 +40,7 @@ PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') 
 
 # Run for ALL samples
 rule all:
-    input: 
+    input:
 
 
 # Rules to include
