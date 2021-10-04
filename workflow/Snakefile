@@ -39,15 +39,8 @@ for row in tsv:
 PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') == 'True'}
 
 # Run for ALL samples
-localrules: all
 rule all:
-    input:
-
-
-# Run for only pilot samples
-localrules: pilot
-rule  pilot:
-    input:
+    input: 
 
 
 # Rules to include

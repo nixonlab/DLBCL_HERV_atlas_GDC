@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-localrules: download_remote
 rule download_remote:
     """ Downloads a remote file and checks the md5sum
     """
@@ -17,7 +16,6 @@ curl -L {params.url} > {output[0]}
 echo {params.md5}  {output[0]} | md5sum -c -
         '''
 
-localrules: extract_genome
 rule extract_genome:
     input:
         'refs/downloads/GRCh38.d1.vd1.fa.tar.gz'
@@ -36,7 +34,6 @@ picard CreateSequenceDictionary R={output[0]} O={output[2]}
         '''
 
 
-localrules: extract_transcriptome
 rule extract_transcriptome:
     input:
         'refs/downloads/gencode.v38.annotation.gtf.gz',
@@ -57,7 +54,6 @@ rm -f $tfa*
         '''
 
 
-localrules: id_mapping
 rule id_mapping:
     input:
         'refs/downloads/gencode.v38.annotation.gtf.gz',
@@ -115,7 +111,6 @@ rule id_mapping:
 #        '''
 
 
-localrules: telescope_annotation
 rule telescope_annotation:
     input:
         'refs/downloads/retro.hg38.v1.gtf',
@@ -188,7 +183,6 @@ scripts/sortgtf.py --fai {input[1]} < {input[0]} > {output[0]}
 #                     print('\t'.join(d[f] for f in fields), file=outh)
 
 
-localrules: kallisto_index
 rule kallisto_index:
     input:
         config['sequences']['transcripts']
@@ -203,7 +197,6 @@ kallisto index -i {output} {input}
         '''
 
 
-localrules: bowtie2_index
 rule bowtie2_index:
     input:
         config['sequences']['genome']
@@ -224,7 +217,6 @@ rm -f $tfa
         '''
 
 
-localrules: hisat2_index
 rule hisat2_index:
     input:
         config['sequences']['genome']
@@ -243,3 +235,14 @@ gunzip -c {input[0]} > $tfa
 hisat2-build -p {threads} $tfa {config[indexes][hisat2]}
 rm -f $tfa
         '''
+
+rule complete_download:
+    input:
+        config['sequences']['genome'],
+        config['sequences']['genome_idx'],
+        config['sequences']['genome_dict'],
+        config['sequences']['transcripts'],
+        config['sequences']['transcripts_dupinfo'],
+        config['sequences']['transcripts_list'],
+        config['annotations']['ttg'],
+        config['annotations']['gsym']
