@@ -9,7 +9,7 @@ rule star_index_gdc38_gencode38:
         directory(config['indexes']['star'])
     input:
         genome = config['sequences']['genome'],
-        annotation_gtf_gz = 'refs/downloads/gencode.v38.annotation.gtf.gz'
+        annotation_gtf_gz = config['annotations']['gencode']
     params:
         sjdbOverhang = 74
     threads: workflow.cores

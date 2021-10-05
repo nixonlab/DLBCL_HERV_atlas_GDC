@@ -7,7 +7,7 @@ rule bam_to_fastq:
     conda: "envs/utils.yaml"
     output:
         R1 = temp("samples/{sampid}/original_R1.fastq"),
-        R2 = temp("samples/{sampid}/original_R1.fastq")
+        R2 = temp("samples/{sampid}/original_R2.fastq")
     input: "samples/{sampid}/original.bam"
     threads: workflow.cores
     params:
