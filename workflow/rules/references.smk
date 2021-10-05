@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+################################# DOWNLOAD REFS #################################
+
 rule download_remote:
     """ Downloads a remote file and checks the md5sum
     """
@@ -15,6 +17,8 @@ mkdir -p $(dirname {output[0]})
 curl -L {params.url} > {output[0]}
 echo {params.md5}  {output[0]} | md5sum -c -
         '''
+
+################################# EXTRACT REFS #################################
 
 rule extract_genome:
     input:
@@ -53,6 +57,7 @@ grep ">" {output[0]} | sed "s/^>//" | sort | uniq > {output[2]}
 rm -f $tfa*
         '''
 
+################################## ID MAPPING ##################################
 
 rule id_mapping:
     input:
@@ -91,6 +96,8 @@ rule id_mapping:
             print('GENEID\tSYM', file=outh)
             for t in g_sym.items():
                 print('%s\t%s' % t, file=outh)
+
+############################### FORMAT ANNOTATIONS ##############################
 
 
 # localrules: telescope_annotation
@@ -183,6 +190,8 @@ scripts/sortgtf.py --fai {input[1]} < {input[0]} > {output[0]}
 #                     print('\t'.join(d[f] for f in fields), file=outh)
 
 
+################################## INDEX REFS ##################################
+
 rule kallisto_index:
     input:
         config['sequences']['transcripts']
@@ -235,6 +244,8 @@ gunzip -c {input[0]} > $tfa
 hisat2-build -p {threads} $tfa {config[indexes][hisat2]}
 rm -f $tfa
         '''
+
+################################# RULE TARGETS #################################
 
 rule complete_download:
     input:

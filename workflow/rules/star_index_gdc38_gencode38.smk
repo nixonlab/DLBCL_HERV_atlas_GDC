@@ -1,12 +1,17 @@
+#! /usr/bin/env python
+# -*- coding utf-8 -*-
+
+################################## INDEX REFS ##################################
+
 rule star_index_gdc38_gencode38:
+    conda: "envs/star.yaml"
+    output:
+        directory(config['indexes']['star'])
     input:
         genome = config['sequences']['genome'],
         annotation_gtf_gz = 'refs/downloads/gencode.v38.annotation.gtf.gz'
-    output:
-        directory(config['indexes']['star'])
     params:
         sjdbOverhang = 74
-    conda: "../envs/star.yaml"
     threads: workflow.cores
     shell:
         """

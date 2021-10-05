@@ -12,22 +12,20 @@ rule starsolo_alignment:
 	Align sequencing reads from a 10x V3 single-cell RNA-seq experiment using STARsolo
 	"""
 	input:
-		cDNA_L1 = "data/{dataset}/{sample}_S1_L001_R2_001.fastq.gz",
-		cDNA_L2 = "data/{dataset}/{sample}_S1_L002_R2_001.fastq.gz",
-		barcode_L1 = "data/{dataset}/{sample}_S1_L001_R1_001.fastq.gz",
-		barcode_L2 = "data/{dataset}/{sample}_S1_L002_R1_001.fastq.gz",
-		genome = "databases/star_index_GDCHG38_gencode38",
-		whitelist = "resources/whitelist/3M-february-2018.txt"
+		R1 = "samples/{sampid}/original_R1.fastq",
+		R2 = "samples/{sampid}/original_R2.fastq",
+		genome = directory(config['indexes']['star']),
+		whitelist = # FILL THIS IN
 	output:
-		"results/{dataset}/{sample}_GDC38.Aligned.out.bam",
-        "results/{dataset}/{sample}_GDC38.Aligned.sortedByCoord.out.bam"
+		"results/{sample}_GDC38.Aligned.out.bam",
+        "results/{sample}_GDC38.Aligned.sortedByCoord.out.bam"
 	params:
-		out_prefix="results/{dataset}/{sample}_GDC38.",
-		cb_start = config['cellbarcode_start'],
-		cb_length = config['cellbarcode_length'],
-		umi_start = config['umi_start'],
-		umi_length = config['umi_length'],
-		max_multimap = config['max_multimap']
+		out_prefix="results/{sample}_GDC38.",
+		cb_start = config['cellbarcode_start'], # FILL THIS IN
+		cb_length = config['cellbarcode_length'], # FILL THIS IN
+		umi_start = config['umi_start'], # FILL THIS IN
+		umi_length = config['umi_length'], # FILL THIS IN
+		max_multimap = config['max_multimap'] # FILL THIS IN
 	conda:
 		"../envs/star.yaml"
 	threads: 18
