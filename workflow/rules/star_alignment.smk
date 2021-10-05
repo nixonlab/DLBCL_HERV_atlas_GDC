@@ -1,13 +1,13 @@
 ######################################################
 ## Analyze droplet single-cell RNA sequencing data
-## with STARsolo
+## with STAR
 ######################################################
 ## to do:
 ## input as function for cDNA and barcodes
 ## a scheme to name output directories
 ## see if I can integrate PEP here
 
-rule starsolo_alignment:
+rule star_alignment:
 	"""
 	Align sequencing reads from a 10x V3 single-cell RNA-seq experiment using STARsolo
 	"""
@@ -21,15 +21,15 @@ rule starsolo_alignment:
         "results/{sample}_GDC38.Aligned.sortedByCoord.out.bam"
 	params:
 		out_prefix="results/{sample}_GDC38.",
-		cb_start = config['cellbarcode_start'], # FILL THIS IN
-		cb_length = config['cellbarcode_length'], # FILL THIS IN
+		cb_start = config['cellbarcode_start'], # (not needed for bulk data??)
+		cb_length = config['cellbarcode_length'], # (not needed for bulk data??)
 		umi_start = config['umi_start'], # FILL THIS IN
 		umi_length = config['umi_length'], # FILL THIS IN
 		max_multimap = config['max_multimap'] # FILL THIS IN
 	conda:
 		"../envs/star.yaml"
 	threads: 18
-	shell:
+	shell: ##### MUST CHANGE TO STAR INSTEAD OF STARSOLO!! 
 		'''
 		#--- STARsolo (turned on by --soloType CB_UMI_Simple)
 		STAR\

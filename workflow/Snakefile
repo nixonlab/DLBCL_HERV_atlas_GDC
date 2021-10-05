@@ -47,6 +47,6 @@ rule all:
 include: "rules/references.smk"
 include: "rules/gdc_download.smk"
 include: "rules/bam_to_fastq.smk"
-include: "rules/star_index_gdc38_gencode38.smk"
-include: "rules/starsolo_alignment_gdc.smk"
+include: "rules/star_index.smk"
+include: "rules/star_alignment.smk"
 include: "rules/sc_telescope.smk"

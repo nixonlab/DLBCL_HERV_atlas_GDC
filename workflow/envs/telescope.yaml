@@ -1,0 +1,5 @@
+name: telescope
+channels:
+  - bioconda
+dependencies:
+  - telescope
