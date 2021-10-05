@@ -14,8 +14,7 @@ rule star_alignment:
 	input:
 		R1 = "samples/{sampid}/original_R1.fastq",
 		R2 = "samples/{sampid}/original_R2.fastq",
-		genome = directory(config['indexes']['star']),
-		whitelist = # FILL THIS IN
+		genome = directory(config['indexes']['star'])
 	output:
 		"results/{sample}_GDC38.Aligned.out.bam",
         "results/{sample}_GDC38.Aligned.sortedByCoord.out.bam"
@@ -29,7 +28,7 @@ rule star_alignment:
 	conda:
 		"../envs/star.yaml"
 	threads: 18
-	shell: ##### MUST CHANGE TO STAR INSTEAD OF STARSOLO!! 
+	shell: ##### MUST CHANGE TO STAR INSTEAD OF STARSOLO!!
 		'''
 		#--- STARsolo (turned on by --soloType CB_UMI_Simple)
 		STAR\
