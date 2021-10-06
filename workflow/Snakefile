@@ -40,7 +40,7 @@ PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') 
 
 # Run for ALL samples
 rule all:
-    input:
+    input: expand("results/{sampid}/completed.txt", sampid=PILOT.keys())
 
 
 # Rules to include
@@ -49,4 +49,4 @@ include: "rules/gdc_download.smk"
 include: "rules/bam_to_fastq.smk"
 include: "rules/star_index.smk"
 include: "rules/star_alignment.smk"
-include: "rules/sc_telescope.smk"
+include: "rules/telescope.smk"

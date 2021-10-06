@@ -9,16 +9,14 @@ rule star_alignment:
 		R2 = "samples/{sampid}/original_R2.fastq",
 		genome = directory(config['indexes']['star'])
 	output:
-		"results/{sample}_GDC38.Aligned.out.bam",
-        "results/{sample}_GDC38.Aligned.sortedByCoord.out.bam"
+		aligned_bam = "results/{sampid}_GDC38.Aligned.out.bam",
+        sorted_bam = "results/{sampid}_GDC38.Aligned.sortedByCoord.out.bam"
 	params:
-		out_prefix="results/{sample}_GDC38."
-	conda:
-		"envs/star.yaml"
+		out_prefix = "results/{sampid}_GDC38."
+	conda: "envs/star.yaml"
 	threads: 18
-	shell: ##### MUST CHANGE TO STAR INSTEAD OF STARSOLO!!
-		'''
-		#--- STARsolo (turned on by --soloType CB_UMI_Simple)
+	shell:
+		"""
 		STAR\
 			--runThreadN {threads}\
 			--genomeDir {input.genome}\
@@ -26,4 +24,4 @@ rule star_alignment:
 			--outSAMattributes All\
 			--outSAMtype BAM Unsorted SortedByCoordinate\
 			--outFileNamePrefix {params.out_prefix}
-		'''
+		"""
