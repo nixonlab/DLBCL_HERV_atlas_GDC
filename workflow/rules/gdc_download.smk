@@ -3,16 +3,17 @@
 
 ################################# DOWNLOAD BAMS #################################
 
+
 rule gdc_download:
     """ Download BAM from Genomic Data Commons (GDC)
     """
     input:
-        config['gdc_token_file']
+        token = config['gdc_token_file']
     output:
-        temp("samples/{sampid}/original.bam")
+        temp("samples/{s}/original.bam")
     params:
-        uuid = lambda wc: PILOT[wc.sampid]['file_uuid'],
-        md5sum = lambda wc: PILOT[wc.sampid]['md5sum']
+        uuid = lambda wc: PILOT[wc.s]['file_uuid'],
+        md5sum = lambda wc: PILOT[wc.s]['md5sum']
     shell:
         '''
 mkdir -p $(dirname {output[0]})
@@ -23,3 +24,7 @@ curl\
 echo {params.md5sum} {output[0]} | md5sum -c -
 chmod 600 {output[0]}
         '''
+
+rule download_complete:
+    input:
+        expand("samples/{s}/original.bam", s = PILOT.keys())

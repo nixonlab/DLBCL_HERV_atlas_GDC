@@ -28,7 +28,7 @@ rule extract_genome:
         config['sequences']['genome_idx'],
         config['sequences']['genome_dict']
     conda:
-        "envs/utils.yaml"
+        "../envs/utils.yaml"
     shell:
         '''
 mkdir -p $(dirname {output[0]})
@@ -47,7 +47,7 @@ rule extract_transcriptome:
         config['sequences']['transcripts_dupinfo'],
         config['sequences']['transcripts_list']
     conda:
-        "envs/utils.yaml"
+        "../envs/utils.yaml"
     shell:
         '''
 tfa=$(mktemp -p {config[local_tmp]})
@@ -198,7 +198,7 @@ rule kallisto_index:
     output:
         config['indexes']['kallisto']
     conda:
-        "envs/kallisto.yaml"
+        "../envs/kallisto.yaml"
     shell:
         '''
 mkdir -p $(dirname {output})
@@ -214,7 +214,7 @@ rule bowtie2_index:
             '.1.bt2', '.2.bt2', '.3.bt2','.4.bt2', '.rev.1.bt2', '.rev.2.bt2',
         )
     conda:
-        "envs/bowtie2.yaml"
+        "../envs/bowtie2.yaml"
     threads: snakemake.utils.available_cpu_count()
     shell:
         '''
@@ -234,7 +234,7 @@ rule hisat2_index:
             '.1.ht2', '.2.ht2', '.3.ht2','.4.ht2', '.5.ht2', '.6.ht2', '.7.ht2','.8.ht2',
         )
     conda:
-        "envs/hisat2.yaml"
+        "../envs/hisat2.yaml"
     threads: snakemake.utils.available_cpu_count()
     shell:
         '''

@@ -38,14 +38,16 @@ for row in tsv:
 
 PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') == 'True'}
 
-# Run for pilot data (change to sampid=METADATA.keys() to run for all data)
-rule all:
-    input: expand("results/{sampid}/completed.txt", sampid=PILOT.keys())
+# To run for pilot data, sampid=PILOT.keys()
+# To run for all data, sampid=METADATA.keys()
 
+rule all:
+    input:
+        expand("results/{s}/completed.txt", s=PILOT.keys())
 
 # Rules to include
-include: "rules/references.smk"
 include: "rules/gdc_download.smk"
+include: "rules/references.smk"
 include: "rules/bam_to_fastq.smk"
 include: "rules/star_index.smk"
 include: "rules/star_alignment.smk"

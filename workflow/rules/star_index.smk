@@ -4,7 +4,7 @@
 ################################## INDEX REFS ##################################
 
 rule star_index:
-    conda: "envs/star.yaml"
+    conda: "../envs/star.yaml"
     output:
         directory(config['indexes']['star'])
     input:

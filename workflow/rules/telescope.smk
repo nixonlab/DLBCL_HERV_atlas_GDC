@@ -4,20 +4,20 @@
 ################################### TELESCOPE ###################################
 
 rule telescope:
-    conda: "envs/telescope"
+    conda: "../envs/telescope.yaml"
     output:
-        "results/{sampid}/{sampid}_telescope.report.tsv",
-        "results/{sampid}/{sampid}_telescope.updated.bam"
+        "results/{s}/{s}_telescope.report.tsv",
+        "results/{s}/{s}_telescope.updated.bam"
     input:
-        bam = "results/{sampid}_GDC38.Aligned.out.bam",
+        bam = "results/{s}_GDC38.Aligned.out.bam",
         annotation = rules.telescope_annotation.output
     log:
-        "results/{sampid}/telescope.log"
+        "results/{s}/telescope.log"
     params:
         tmpdir = config['local_tmp']
     shell:
         """
-        tdir=$(mktemp -d {config[local_tmp]}/{rule}.{wildcards.sampid}.XXXXXX)
+        tdir=$(mktemp -d {config[local_tmp]}/{rule}.{wildcards.s}.XXXXXX)
         telescope assign\
          --exp_tag inform\
          --theta_prior 200000\
@@ -35,6 +35,6 @@ rule telescope:
 
 rule sample_complete:
     input:
-        rules.telescope.output,
+        rules.telescope.output
     output:
-        touch("results/{sampid}/completed.txt")
+        touch("results/{s}/completed.txt")
