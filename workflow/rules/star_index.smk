@@ -3,7 +3,7 @@
 
 ################################## INDEX REFS ##################################
 
-rule star_index_gdc38_gencode38:
+rule star_index:
     conda: "envs/star.yaml"
     output:
         directory(config['indexes']['star'])
