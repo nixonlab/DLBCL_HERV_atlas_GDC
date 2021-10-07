@@ -17,7 +17,7 @@ rule star_index:
         """
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.XXXXXX)
 
-        pigz -dc {input.gtf_gz} > $tdir/gencode.v38.annotation.gtf
+        pigz -dc {input.annotation_gtf_gz} > $tdir/gencode.v38.annotation.gtf
 
         STAR\
             --runThreadN {threads}\

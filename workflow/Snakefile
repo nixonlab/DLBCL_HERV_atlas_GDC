@@ -38,7 +38,7 @@ for row in tsv:
 
 PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') == 'True'}
 
-# Run for ALL samples
+# Run for pilot data (change to sampid=METADATA.keys() to run for all data)
 rule all:
     input: expand("results/{sampid}/completed.txt", sampid=PILOT.keys())
 
