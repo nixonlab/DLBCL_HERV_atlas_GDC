@@ -9,7 +9,7 @@ cluster:
 default-resources:
   - partition=panda
   - qos=0
-  - nodes=2
+  - nodes=1
 cores: 24
 restart-times: 1
 max-jobs-per-second: 1
