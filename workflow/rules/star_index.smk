@@ -12,7 +12,7 @@ rule star_index:
         annotation_gtf_gz = config['annotations']['gencode']
     params:
         sjdbOverhang = 74
-    threads: 8
+    threads: 25
     shell:
         """
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.XXXXXX)

@@ -126,7 +126,7 @@ rule telescope_annotation:
         config['annotations']['retro']
     shell:
         '''
-scripts/sortgtf.py --fai {input[1]} < {input[0]} > {output[0]}
+python workflow/scripts/sortgtf.py --fai {input[1]} < {input[0]} > {output[0]}
         '''
 
 
