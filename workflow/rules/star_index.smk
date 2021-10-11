@@ -18,13 +18,14 @@ rule star_index:
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.XXXXXX)
 
         pigz -dc {input.annotation_gtf_gz} > $tdir/gencode.v38.annotation.gtf
+        pigz -dc {input.genome} > $tdir/genome.fa
 
         STAR\
             --runThreadN {threads}\
             --runMode genomeGenerate\
             --genomeDir {output}\
             --outFileNamePrefix {output}\
-            --genomeFastaFiles {input.genome}\
+            --genomeFastaFiles $tdir/genome.fa\
             --sjdbGTFfile $tdir/gencode.v38.annotation.gtf\
             --sjdbOverhang {params.sjdbOverhang}
         """

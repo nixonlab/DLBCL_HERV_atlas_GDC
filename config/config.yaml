@@ -5,7 +5,7 @@ sample_tsv: "config/samples.tsv"
 gdc_token_file: "config/gdc-user-token.txt"
 
 # assigned temporary directory
-local_tmp: "/tmp"
+local_tmp: "$TMPDIR"
 
 # Remote files to be downloaded to refs/downloads
 downloads:
