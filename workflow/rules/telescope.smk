@@ -9,7 +9,7 @@ rule telescope:
         "results/{s}/{s}_telescope.report.tsv",
         "results/{s}/{s}_telescope.updated.bam"
     input:
-        bam = "results/{s}_GDC38.Aligned.out.bam",
+        bam = "results/{s}/{s}_GDC38.Aligned.out.bam",
         annotation = rules.telescope_annotation.output
     log:
         "results/{s}/telescope.log"

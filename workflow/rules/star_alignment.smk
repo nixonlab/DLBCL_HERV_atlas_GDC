@@ -11,11 +11,11 @@ rule star_alignment:
         R2 = "samples/{s}/original_R2.fastq",
         genome = config['indexes']['star']
     output:
-        aligned_bam = "results/{s}_GDC38.Aligned.out.bam",
-        sorted_bam = "results/{s}_GDC38.Aligned.sortedByCoord.out.bam"
+        aligned_bam = "results/{s}/{s}_GDC38.Aligned.out.bam",
+        sorted_bam = "results/{s}/{s}_GDC38.Aligned.sortedByCoord.out.bam"
     params:
-        out_prefix="results/{s}_GDC38."
-    threads: workflow.cores
+        out_prefix="results/{s}/{s}_GDC38."
+    threads: 8
     resources:
         mem_mb=40000
     shell:
