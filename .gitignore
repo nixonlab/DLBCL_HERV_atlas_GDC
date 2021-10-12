@@ -1,3 +1,7 @@
 .snakemake/
 .editorconfig
 .gitattributes
+logs/
+refs/
+results/
+samples/

@@ -13,6 +13,8 @@ rule star_index:
     params:
         sjdbOverhang = 74
     threads: 25
+    resources:
+        mem_mb=40000
     shell:
         """
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.XXXXXX)

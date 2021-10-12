@@ -16,6 +16,8 @@ rule star_alignment:
     params:
         out_prefix="results/{s}_GDC38."
     threads: workflow.cores
+    resources:
+        mem_mb=40000
     shell:
         '''
         STAR\
@@ -24,5 +26,6 @@ rule star_alignment:
             --readFilesIn {input.R1} {input.R2}\
             --outSAMattributes NH HI NM MD AS XS\
             --outSAMtype BAM Unsorted SortedByCoordinate\
-            --outFileNamePrefix {params.out_prefix}
+            --outFileNamePrefix {params.out_prefix}\
+            --limitBAMsortRAM 53679965568
         '''
