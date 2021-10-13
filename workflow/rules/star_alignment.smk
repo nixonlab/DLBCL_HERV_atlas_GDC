@@ -17,7 +17,7 @@ rule star_alignment:
         out_prefix="results/{s}/{s}_GDC38."
     threads: 8
     resources:
-        mem_mb=50000, disk_mb=15000
+        mem_mb=70000, disk_mb=20000
     benchmark: "benchmarks/star_alignment/{s}_star_alignment.tsv"
     shell:
         '''
