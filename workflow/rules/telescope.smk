@@ -18,7 +18,7 @@ rule telescope:
     shell:
         """
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.{wildcards.s}.XXXXXX)
-        telescope assign\
+        telescope bulk assign\
          --exp_tag inform\
          --theta_prior 200000\
          --max_iter 200\
