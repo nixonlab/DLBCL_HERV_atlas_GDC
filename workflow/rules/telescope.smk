@@ -27,8 +27,8 @@ rule telescope:
          {input[0]}\
          {input[1]}\
          2>&1 | tee {log[0]}
-        mv $tdir/inform-telescope_report.tsv {output[0]}
-        mv $tdir/inform-updated.bam {output[1]}
+        mv $tdir/telescope_report.tsv {output[0]}
+        mv $tdir/updated.bam {output[1]}
         chmod 600 {output[1]}
         rm -rf $tdir
         """
