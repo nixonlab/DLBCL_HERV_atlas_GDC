@@ -11,6 +11,7 @@ rule gdc_download:
         token = config['gdc_token_file']
     output:
         temp("samples/{s}/original.bam")
+    benchmark: "benchmarks/gdc_download/{s}_gdc_download.tsv"
     params:
         uuid = lambda wc: PILOT[wc.s]['file_uuid'],
         md5sum = lambda wc: PILOT[wc.s]['md5sum']

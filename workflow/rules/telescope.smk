@@ -6,13 +6,14 @@
 rule telescope:
     conda: "../envs/telescope.yaml"
     output:
-        "results/{s}/{s}_telescope.report.tsv",
-        "results/{s}/{s}_telescope.updated.bam"
+        "results/telescope/{s}/{s}_telescope.report.tsv",
+        "results/telescope/{s}/{s}_telescope.updated.bam"
     input:
-        bam = "results/{s}/{s}_GDC38.Aligned.out.bam",
+        bam = "results/star_alignment/{s}/{s}_GDC38.Aligned.out.bam",
         annotation = rules.telescope_annotation.output
+    benchmark: "benchmarks/telescope/{s}_telescope.tsv"
     log:
-        "results/{s}/telescope.log"
+        "results/telescope/{s}/telescope.log"
     params:
         tmpdir = config['local_tmp']
     shell:

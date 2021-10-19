@@ -10,6 +10,7 @@ rule bam_to_fastq:
         R2 = temp("samples/{s}/original_R2.fastq")
     input: "samples/{s}/original.bam"
     threads: workflow.cores
+    benchmark: "benchmarks/bam_to_fastq/{s}_bam_to_fastq.tsv"
     params:
         tmp = config['local_tmp']
     shell:
