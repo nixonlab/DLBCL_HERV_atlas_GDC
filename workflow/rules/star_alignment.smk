@@ -30,7 +30,7 @@ rule star_alignment:
             --outSAMattributes NH HI NM MD AS XS\
             --outSAMtype BAM Unsorted SortedByCoordinate\
             --outFileNamePrefix {params.out_prefix}\
-            --quantMode TranscriptomeSAM GeneCounts\
+            --quantMode GeneCounts\
             --outSAMstrandField intronMotif\
             --limitBAMsortRAM 53679965568
         '''
