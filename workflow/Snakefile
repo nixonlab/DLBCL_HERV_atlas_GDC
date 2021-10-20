@@ -36,9 +36,9 @@ for row in tsv:
 
 # Create filtered metadata file with pilot data
 
-PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') == 'True'}
+# PILOT = {sample: data for sample, data in METADATA.items() if data.get('pilot') == 'True'}
 
-#PILOT = {sample: data for sample, data in METADATA.items() if data.get('sample') == 'DLBCL11181'}
+PILOT = {sample: data for sample, data in METADATA.items() if data.get('sample') == 'DLBCL11589'}
 
 # To run for pilot data, sampid=PILOT.keys()
 # To run for all data, sampid=METADATA.keys()
