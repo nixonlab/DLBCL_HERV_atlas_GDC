@@ -11,10 +11,10 @@ rule star_index:
         genome = config['sequences']['genome'],
         annotation_gtf_gz = config['annotations']['gencode']
     params:
-        sjdbOverhang = 74
-    threads: 25
+        sjdbOverhang = config['sjdbOverhang']
+    threads: config['star_index_threads']
     resources:
-        mem_mb=40000
+        mem_mb=config['star_index_mem_mb']
     shell:
         """
         tdir=$(mktemp -d {config[local_tmp]}/{rule}.XXXXXX)

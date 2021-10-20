@@ -46,3 +46,15 @@ annotations:
     # l1_tsv: "refs/annotation/L1Base.hg38.v1.tsv"
     ttg: "refs/annotation/ttg.tsv"
     gsym: "refs/annotation/gsym.tsv"
+
+##### rule-specific resources and parameters #####
+
+# STAR index
+sjdbOverhang: 74
+star_index_threads: 25
+star_index_mem_mb: 40000
+
+# STAR alignment
+star_alignment_threads: 16
+outFilterMultimapNmax: 200
+winAnchorMultimapNmax: 200

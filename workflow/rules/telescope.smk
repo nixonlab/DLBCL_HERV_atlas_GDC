@@ -38,4 +38,4 @@ rule sample_complete:
     input:
         rules.telescope.output
     output:
-        touch("results/{s}/completed.txt")
+        touch("results/completed/{s}_completed.txt")
