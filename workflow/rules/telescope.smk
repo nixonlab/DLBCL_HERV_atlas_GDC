@@ -7,7 +7,8 @@ rule telescope:
     conda: "../envs/telescope.yaml"
     output:
         "results/telescope/{s}/{s}_telescope.report.tsv",
-        "results/telescope/{s}/{s}_telescope.updated.bam"
+        "results/telescope/{s}/{s}_telescope.updated.bam",
+        "results/telescope/{s}/{s}_telescope.other.bam"
     input:
         bam = "results/star_alignment/{s}/{s}_GDC38.Aligned.out.bam",
         annotation = rules.telescope_annotation.output
@@ -30,6 +31,7 @@ rule telescope:
          2>&1 | tee {log[0]}
         mv $tdir/inform-TE_counts.tsv {output[0]}
         mv $tdir/inform-updated.bam {output[1]}
+        mv $tdir/other.bam {output[2]}
         chmod 600 {output[1]}
         rm -rf $tdir
         """
