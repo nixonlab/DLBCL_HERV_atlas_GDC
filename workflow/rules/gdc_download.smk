@@ -9,8 +9,7 @@ rule gdc_download:
     """
     input:
         token = config['gdc_token_file']
-    output:
-        temp("samples/{s}/original.bam")
+    output: "samples/{s}/original.bam"
     benchmark: "benchmarks/gdc_download/{s}_gdc_download.tsv"
     params:
         uuid = lambda wc: PILOT[wc.s]['file_uuid'],

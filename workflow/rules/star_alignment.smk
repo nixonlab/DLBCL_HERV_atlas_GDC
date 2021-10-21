@@ -32,5 +32,6 @@ rule star_alignment:
             --quantMode GeneCounts\
             --outSAMstrandField intronMotif\
             --outFilterMultimapNmax {params.outFilterMultimapNmax}\
-            --winAnchorMultimapNmax {params.winAnchorMultimapNmax}
+            --winAnchorMultimapNmax {params.winAnchorMultimapNmax}\
+            --outSAMunmapped Within KeepPairs
         '''
