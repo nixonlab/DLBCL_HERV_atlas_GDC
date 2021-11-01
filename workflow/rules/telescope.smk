@@ -32,7 +32,7 @@ rule telescope:
          2>&1 | tee {log[0]}
         mv $tdir/inform-TE_counts.tsv {output[0]}
         mv $tdir/inform-updated.bam {output[1]}
-        mv $tdir/other.bam {output[2]}
+        mv $tdir/inform-other.bam {output[2]}
         chmod 660 {output[1]}
         rm -rf $tdir
         """
