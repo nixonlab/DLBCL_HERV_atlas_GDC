@@ -15,6 +15,7 @@ rule telescope:
     benchmark: "benchmarks/telescope/{s}_telescope.tsv"
     log:
         "results/telescope/{s}/telescope.log"
+    threads: config['telescope_threads']
     params:
         tmpdir = config['local_tmp']
     shell:
@@ -32,7 +33,7 @@ rule telescope:
         mv $tdir/inform-TE_counts.tsv {output[0]}
         mv $tdir/inform-updated.bam {output[1]}
         mv $tdir/other.bam {output[2]}
-        chmod 600 {output[1]}
+        chmod 660 {output[1]}
         rm -rf $tdir
         """
 

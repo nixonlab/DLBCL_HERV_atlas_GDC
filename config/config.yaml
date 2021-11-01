@@ -51,10 +51,13 @@ annotations:
 
 # STAR index
 sjdbOverhang: 74
-star_index_threads: 25
+star_index_threads: 32
 star_index_mem_mb: 40000
 
 # STAR alignment
-star_alignment_threads: 16
+star_alignment_threads: 32
 outFilterMultimapNmax: 200
 winAnchorMultimapNmax: 200
+
+# TELESCOPE
+telescope_threads: 2

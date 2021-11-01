@@ -22,7 +22,7 @@ curl\
  https://api.gdc.cancer.gov/data/{params.uuid}\
  > {output[0]}
 echo {params.md5sum} {output[0]} | md5sum -c -
-chmod 600 {output[0]}
+chmod 660 {output[0]}
         '''
 
 rule download_complete:
